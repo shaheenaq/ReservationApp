@@ -83,3 +83,34 @@
         
     </body>
 </html>
+ 
+ <script type="text/javascript">
+    // Question: What does this code do?
+    $("#add-btn").on("click", function(event) {
+      event.preventDefault();
+
+      var form-group= {
+        name: $("#reserve_name").val().trim(),
+        phone: $("#eserve_phone").val().trim(),
+        email: $("#eserve_email").val().trim(),
+        uniqueID: $("#reserve_uniqueID").val().trim()
+      };
+
+      // Question: What does this code do??
+      $.post("/api/new", form-group)
+      .done(function(data) {
+        console.log(data);
+        alert("Reservation made...");
+      });
+
+    });
+  </script>
+
+      // Question: What does this code do??
+      $.post("/api/new", newCharacter)
+      .done(function(data) {
+        console.log(data);
+        alert("Adding character...");
+      });
+
+    });
