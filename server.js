@@ -14,7 +14,15 @@ var reservations = [{
         email: "pfullen.code@gmail.com",
         id: "pfullen",
 
-        status: "waiting" // waiting or table
+        status: "waitlist" // waiting or table
+    }, 
+    {
+        name: "Peter",
+        phone: "404-931-8079",
+        email: "pfullen.code@gmail.com",
+        id: "pfullen",
+
+        status: "table" // waiting or table
 
     }
 
@@ -49,6 +57,27 @@ app.get("/api/tables", function(req, res) {
     res.json(reservations);
 })
 
+app.get("/api/waitlist", function(req, res) {
+
+    var waitlist = [];
+    reservations.forEach(function(reservation) {
+        if (reservation.status === "waitlist") {
+            waitlist.push(reservation);
+        }
+    })
+    res.json(waitlist);
+});
+
+app.get("/api/reservations", function(req, res) {
+
+    var tables = [];
+    reservations.forEach(function(reservation) {
+        if (reservation.status === "table") {
+            tables.push(reservation);
+        }
+    })
+    res.json(waitlist);
+});
 
 
 
@@ -67,15 +96,15 @@ app.post("/api/reserve", function(req, res) {
     }  */ //req.body;
 
     // ck reg exp
-    
-      if (reservations.length < 5 ){
-      	  newReservation.status = "table";
-      } else {
-      	newReservation.status = "waiting";
-      }
-    
+    // check to see how many people are on the wait list
+    if (reservations.length < 5) {
+        newReservation.status = "table";
+    } else {
+        newReservation.status = "waitlist";
+    }
+
     reservations.push(newReservation)
-    
+
     console.log("This is the new reserv" + newReservation);
     console.log(reservations);
 
